@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 
@@ -23,13 +24,15 @@ class NewVisitorTest(unittest.TestCase):
                 inputbox.get_attribute('placeholder'),
                 "input To-Do item"
         )
+         
         
-        input.send_keys(Keys.Enter)
-        
+        inputbox.send_keys("buy the item")
+        inputbox.send_keys(Keys.ENTER)
         table = self.browser.find_element_by_css_selector('#id_list_table')
         rows = table.find_elements_by_css_selector('tr')
         self.assertTrue(
                 any(row.text == '1: Buy the toy' for row in rows),
+                "there is no new to-do on the table"
         )
         
         self.fail('Finish the test!!')
